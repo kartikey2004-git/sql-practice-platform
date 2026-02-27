@@ -1,0 +1,288 @@
+// Vercel-inspired SaaS Design System (matching assignments.scss)
+$bg-primary: #fafafa;
+$bg-secondary: #ffffff;
+$bg-surface: #ffffff;
+$bg-surface-light: #ffffff;
+$bg-card: #ffffff;
+$bg-card-hover: #ffffff;
+
+$border-primary: #e5e5e5;
+$border-secondary: #f0f0f0;
+$border-hover: #d4d4d4;
+
+$text-primary: #171717;
+$text-secondary: #737373;
+$text-muted: #a3a3a3;
+
+$accent-primary: #0070f3;
+$accent-primary-hover: #0051cc;
+$accent-secondary: #5f5f5f;
+$accent-success: #22c55e;
+
+$gradient-primary: transparent;
+$gradient-card: transparent;
+$gradient-hover: transparent;
+
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 10px;
+$radius-xl: 12px;
+
+$shadow-sm: none;
+$shadow-md: 0 1px 3px rgba(0, 0, 0, 0.05);
+$shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.07);
+$shadow-xl: 0 8px 12px rgba(0, 0, 0, 0.08);
+
+$transition-fast: 150ms;
+$transition-base: 150ms;
+$transition-slow: 200ms;
+
+.assignment-detail-page {
+  min-height: 100vh;
+  background: $bg-primary;
+  color: $text-primary;
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: $text-secondary;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 2rem 0 2rem 0;
+    transition: color $transition-fast ease;
+    font-size: 0.875rem;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &:focus {
+      outline: 1px solid $border-primary;
+      outline-offset: 2px;
+      border-radius: $radius-sm;
+    }
+  }
+
+  .error-message {
+    background: $bg-card;
+    border: 1px solid $border-primary;
+    color: $text-primary;
+    padding: 1.25rem;
+    border-radius: $radius-lg;
+    margin-top: 1rem;
+    font-weight: 500;
+    box-shadow: $shadow-sm;
+  }
+
+  .assignment-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $border-primary;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+  }
+
+  .question-section {
+    background: $bg-card;
+    border: 1px solid $border-primary;
+    border-radius: $radius-lg;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: $shadow-sm;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0 0 1rem 0;
+      letter-spacing: -0.01em;
+    }
+
+    .question-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: $text-secondary;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+
+  .schema-section {
+    background: $bg-card;
+    border: 1px solid $border-primary;
+    border-radius: $radius-lg;
+    padding: 2rem;
+    box-shadow: $shadow-sm;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0 0 1.5rem 0;
+      letter-spacing: -0.01em;
+    }
+
+    .tables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .table-schema {
+      border: 1px solid $border-primary;
+      border-radius: $radius-lg;
+      padding: 1.5rem;
+      background-color: $bg-card;
+      transition: all $transition-base ease;
+
+      &:hover {
+        border-color: $border-hover;
+        box-shadow: $shadow-md;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0 0 1rem 0;
+        font-family:
+          "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+        letter-spacing: 0.01em;
+      }
+
+      .columns-list {
+        h4 {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: $text-muted;
+          margin: 0 0 0.75rem 0;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .column-item {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem 0;
+          border-bottom: 1px solid $border-secondary;
+          transition: background-color $transition-fast ease;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &:hover {
+            background-color: $bg-secondary;
+            margin: 0 -0.5rem;
+            padding: 0.75rem 0.5rem;
+            border-radius: $radius-sm;
+          }
+
+          .column-name {
+            font-weight: 600;
+            color: $text-primary;
+            font-family:
+              "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+            margin-right: 1rem;
+            font-size: 0.875rem;
+          }
+
+          .column-type {
+            font-size: 0.75rem;
+            color: $text-secondary;
+            background-color: $bg-secondary;
+            padding: 0.25rem 0.5rem;
+            border-radius: $radius-sm;
+            font-family:
+              "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+            border: 1px solid $border-secondary;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border-primary;
+  border-radius: 4px;
+
+  &:hover {
+    background: $border-hover;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .assignment-detail-page {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .back-link {
+      margin: 1.5rem 0 1.5rem 0;
+      font-size: 0.875rem;
+    }
+
+    .assignment-header {
+      margin-bottom: 1.5rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .question-section,
+    .schema-section {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tables-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .table-schema {
+      padding: 1.25rem;
+
+      .column-item:hover {
+        margin: 0 -0.25rem;
+        padding: 0.75rem 0.25rem;
+      }
+    }
+
+    .error-message {
+      padding: 1rem;
+    }
+  }
+}

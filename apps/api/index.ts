@@ -5,6 +5,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectMongo } from "./src/utils/mongo";
 import { connectPostgres } from "./src/utils/postgres";
+import { ApiError } from "./utils/ApiError";
+import assignmentRoutes from "./routes/assignment.routes";
 
 dotenv.config();
 connectMongo();
@@ -15,13 +17,32 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err);
-  res.status(500).json({ message: "Internal server error" });
-});
-
 app.get("/health", (_, res) => {
   res.json({ ok: true });
+});
+
+app.use("/assignments", assignmentRoutes);
+
+// Global error handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).json({
+      success: err.success,
+      message: err.message,
+      data: err.data,
+      errors: err.errors,
+    });
+  }
+
+  // Default error response
+  res.status(500).json({
+    success: false,
+    message: "Internal server error",
+    data: null,
+    errors: [],
+  });
 });
 
 const PORT = process.env.PORT || 5000;
