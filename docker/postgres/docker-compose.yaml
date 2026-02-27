@@ -1,0 +1,11 @@
+name: sql-learn
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: kartikey
+      POSTGRES_PASSWORD: npg_Gd1hR7jebZyJ
+      POSTGRES_DB: sql-learn
+    ports:
+      - "5432:5432"
