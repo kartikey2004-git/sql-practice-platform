@@ -20,6 +20,7 @@ export interface IAssignment extends Document {
   title: string;
   description: string;
   question: string;
+  difficulty: "easy" | "medium" | "hard";
   sampleTables: ITable[];
   expectedOutput: IExpectedOutput;
   createdAt: Date;
@@ -29,35 +30,35 @@ export interface IAssignment extends Document {
 const ColumnSchema = new Schema<IColumn>({
   columnName: {
     type: String,
-    required: true
+    required: true,
   },
   dataType: {
     type: String,
-    required: true
+    required: true,
   },
 });
 
 const TableSchema = new Schema<ITable>({
   tableName: {
     type: String,
-    required: true
+    required: true,
   },
   columns: [ColumnSchema],
   rows: [
     {
-      type: Schema.Types.Mixed
-    }
+      type: Schema.Types.Mixed,
+    },
   ],
 });
 
 const ExpectedOutputSchema = new Schema<IExpectedOutput>({
   type: {
     type: String,
-    required: true
+    required: true,
   },
   value: {
     type: Schema.Types.Mixed,
-    required: true
+    required: true,
   },
 });
 
@@ -65,20 +66,26 @@ const AssignmentSchema = new Schema<IAssignment>(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: false
+      required: false,
     },
     question: {
       type: String,
-      required: true
+      required: true,
+    },
+    difficulty: {
+      type: String,
+      enum: ["easy", "medium", "hard"],
+      default: "medium",
+      required: true,
     },
     sampleTables: [TableSchema],
     expectedOutput: {
       type: ExpectedOutputSchema,
-      required: true
+      required: true,
     },
   },
   {

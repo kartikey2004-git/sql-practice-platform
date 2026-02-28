@@ -8,6 +8,9 @@ import { connectPostgres } from "./src/utils/postgres";
 import { ApiError } from "./utils/ApiError";
 import assignmentRoutes from "./routes/assignment.routes";
 import sandboxRoutes from "./routes/sandbox.routes";
+import progressRoutes from "./routes/progress.routes";
+import hintRoutes from "./routes/hint.routes";
+import cleanupRoutes from "./routes/cleanup.routes";
 
 dotenv.config();
 connectMongo();
@@ -24,6 +27,9 @@ app.get("/health", (_, res) => {
 
 app.use("/assignments", assignmentRoutes);
 app.use("/sandbox", sandboxRoutes);
+app.use("/progress", progressRoutes);
+app.use("/hints", hintRoutes);
+app.use("/cleanup", cleanupRoutes);
 
 // Global error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

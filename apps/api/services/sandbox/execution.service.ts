@@ -1,5 +1,6 @@
 import { pool } from "../../src/utils/postgres";
 import { SandboxMeta } from "../../models/sandboxMeta.model";
+import { ExecutionLogService } from "../logging/executionLog.service";
 import mongoose from "mongoose";
 
 export interface QueryResult {
@@ -293,6 +294,17 @@ export class ExecutionService {
         // Calculate execution time
         const executionTime = Date.now() - startTime;
 
+        // Log successful execution
+        await ExecutionLogService.logExecution({
+          identityId,
+          assignmentId,
+          query,
+          executionTime,
+          rowCount: result.rowCount || 0,
+          status: "success",
+          schemaName,
+        });
+
         // Format and return result
         return this.formatResult(result, executionTime);
       } finally {
@@ -300,6 +312,28 @@ export class ExecutionService {
       }
     } catch (error: any) {
       console.error("Query execution error:", error);
+
+      const executionTime = Date.now() - startTime;
+
+      // Get schema name for logging if possible
+      let schemaName = "unknown";
+      try {
+        schemaName = await this.getSandboxSchema(identityId, assignmentId);
+      } catch (e) {
+        // Schema not found, use unknown
+      }
+
+      // Log failed execution
+      await ExecutionLogService.logExecution({
+        identityId,
+        assignmentId,
+        query,
+        executionTime,
+        rowCount: 0,
+        status: "error",
+        errorMessage: error.message,
+        schemaName,
+      });
 
       // Handle timeout
       if (error.message === "Query timeout") {
